@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA — Lifelong Coaching Platform | Master Soft Skills & Emotional Intelligence</title>
+    <meta name="description" content="The first lifelong coaching platform that masters soft skills and emotional intelligence through age-adaptive quests—helping kids find their voice and adults find their edge.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Nunito:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- LANDING PAGE                                 -->
+    <!-- ============================================ -->
+    <section id="landing-page" class="page active">
+        <div class="aurora-bg">
+            <div class="aurora-blob blob-1"></div>
+            <div class="aurora-blob blob-2"></div>
+            <div class="aurora-blob blob-3"></div>
+            <div class="particles" id="particles-container"></div>
+        </div>
+
+        <nav class="landing-nav">
+            <div class="nav-logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">AURA</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#community">Community</a>
+                <button class="nav-cta" onclick="showPage('onboarding')">Get Started</button>
+            </div>
+        </nav>
+
+        <div class="hero-section">
+            <div class="hero-badge">✨ AI-Powered Personality Development</div>
+            <h1 class="hero-title">
+                <span class="hero-gradient-text">Master Your Soft Skills.</span>
+                <br>
+                <span class="hero-white-text">Find Your Edge.</span>
+            </h1>
+            <p class="hero-subtitle">The first lifelong coaching platform that masters soft skills and emotional intelligence through age-adaptive quests—helping kids find their voice and adults find their edge.</p>
+            <div class="hero-cta-group">
+                <button class="btn-primary-glow" onclick="showPage('onboarding')">
+                    Start Your Journey
+                    <span class="btn-arrow">→</span>
+                </button>
+                <button class="btn-secondary-ghost">
+                    <span class="play-icon">▶</span>
+                    Watch Demo
+                </button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="50000">0</span>
+                    <span class="stat-label">Active Learners</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="200">0</span>
+                    <span class="stat-label">Scenarios</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="96">0</span>
+                    <span class="stat-label">% Satisfaction</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="age-cards-section">
+            <h2 class="section-title">One Platform. <span class="gradient-text">Every Age.</span></h2>
+            <div class="age-cards-container">
+                <div class="age-card kids-card" onclick="enterDashboard('kids')">
+                    <div class="age-card-glow kids-glow"></div>
+                    <div class="age-card-content">
+                        <div class="age-card-mascot">🐉</div>
+                        <h3>Kids <span class="age-range">(6-12)</span></h3>
+                        <p>A bright animated world with Buddy the Dragon. Learn empathy, kindness & confidence through fun quests!</p>
+                        <div class="age-card-features">
+                            <span class="feature-chip kids-chip">🎮 Gamified Quests</span>
+                            <span class="feature-chip kids-chip">⭐ XP & Badges</span>
+                            <span class="feature-chip kids-chip">🎡 Spin-the-Wheel</span>
+                        </div>
+                        <button class="age-card-btn kids-btn">Explore Kids World →</button>
+                    </div>
+                </div>
+
+                <div class="age-card teens-card" onclick="enterDashboard('teens')">
+                    <div class="age-card-glow teens-glow"></div>
+                    <div class="age-card-content">
+                        <div class="age-card-mascot">🚀</div>
+                        <h3>Teens <span class="age-range">(13-21)</span></h3>
+                        <p>Private Social Lab to practice interviews, handle peer pressure, and build unshakable confidence.</p>
+                        <div class="age-card-features">
+                            <span class="feature-chip teens-chip">🧪 Social Lab</span>
+                            <span class="feature-chip teens-chip">🔥 Streaks</span>
+                            <span class="feature-chip teens-chip">💬 Community</span>
+                        </div>
+                        <button class="age-card-btn teens-btn">Enter Teen Zone →</button>
+                    </div>
+                </div>
+
+                <div class="age-card adults-card" onclick="enterDashboard('adults')">
+                    <div class="age-card-glow adults-glow"></div>
+                    <div class="age-card-content">
+                        <div class="age-card-mascot">📊</div>
+                        <h3>Adults <span class="age-range">(22+)</span></h3>
+                        <p>Professional analytics dashboard. Polish negotiation, leadership, and the soft skills employers demand.</p>
+                        <div class="age-card-features">
+                            <span class="feature-chip adults-chip">📈 Analytics</span>
+                            <span class="feature-chip adults-chip">🎯 Mastery Tracks</span>
+                            <span class="feature-chip adults-chip">🪞 Mirror-Tech</span>
+                        </div>
+                        <button class="age-card-btn adults-btn">Start Pro Journey →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-section" id="features">
+            <h2 class="section-title">Powered by <span class="gradient-text">Intelligence</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Social Lab</h3>
+                    <p>AI-powered roleplay for interviews, negotiations, and social scenarios. Practice without judgment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Smart Journaling</h3>
+                    <p>NLP-powered sentiment analysis detects burnout, anxiety, and excitement from your words.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🪞</div>
+                    <h3>Mirror-Tech</h3>
+                    <p>Real-time body language analysis. Perfect your posture, gestures, and confidence signals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Mastery Tracks</h3>
+                    <p>Structured paths for Empathy, Public Speaking, Conflict Resolution, Leadership & more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Community Circles</h3>
+                    <p>Moderated groups for peer learning, mentorship, and collaborative challenges.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎡</div>
+                    <h3>Gamified Missions</h3>
+                    <p>Spin-the-wheel quizzes, scenario games, daily challenges—never a dull moment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ONBOARDING / AGE SELECT                      -->
+    <!-- ============================================ -->
+    <section id="onboarding" class="page">
+        <div class="aurora-bg">
+            <div class="aurora-blob blob-1"></div>
+            <div class="aurora-blob blob-2"></div>
+        </div>
+        <div class="onboarding-container">
+            <button class="back-btn" onclick="showPage('landing-page')">← Back</button>
+            <h1 class="onboarding-title">Welcome to <span class="gradient-text">AURA</span></h1>
+            <p class="onboarding-subtitle">Choose your experience to get started</p>
+            <div class="onboarding-cards">
+                <div class="onboarding-card" onclick="enterDashboard('kids')">
+                    <div class="onboarding-emoji">🐉</div>
+                    <h3>I'm a Kid</h3>
+                    <p>Ages 6-12 • Fun adventures with Buddy!</p>
+                </div>
+                <div class="onboarding-card" onclick="enterDashboard('teens')">
+                    <div class="onboarding-emoji">🚀</div>
+                    <h3>I'm a Teen</h3>
+                    <p>Ages 13-21 • Level up your social game</p>
+                </div>
+                <div class="onboarding-card" onclick="enterDashboard('adults')">
+                    <div class="onboarding-emoji">💼</div>
+                    <h3>I'm a Professional</h3>
+                    <p>Ages 22+ • Master the skills that matter</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- KIDS DASHBOARD                               -->
+    <!-- ============================================ -->
+    <section id="kids-dashboard" class="page dashboard-page">
+        <div class="kids-bg">
+            <div class="floating-star" style="top:10%;left:5%">⭐</div>
+            <div class="floating-star" style="top:20%;left:85%">✨</div>
+            <div class="floating-star" style="top:60%;left:90%">🌟</div>
+            <div class="floating-star" style="top:80%;left:10%">⭐</div>
+            <div class="floating-cloud" style="top:15%;left:30%">☁️</div>
+            <div class="floating-cloud" style="top:45%;left:70%">☁️</div>
+        </div>
+
+        <nav class="kids-nav">
+            <div class="kids-nav-logo">
+                <span class="kids-logo-icon">🐉</span>
+                <span class="kids-logo-text">AURA Kids</span>
+            </div>
+            <div class="kids-nav-profile">
+                <div class="kids-streak-badge">🔥 5 days</div>
+                <div class="kids-xp-badge">⭐ 1,250 XP</div>
+                <div class="kids-avatar" onclick="showPage('landing-page')">
+                    <span>😊</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="kids-layout">
+            <!-- Mascot Sidebar -->
+            <div class="kids-mascot-panel">
+                <div class="mascot-character">
+                    <div class="mascot-body">🐉</div>
+                    <div class="mascot-glow"></div>
+                </div>
+                <div class="mascot-speech-bubble">
+                    <p id="mascot-message">Hey there, Explorer! Ready for today's quest? 🎉</p>
+                </div>
+                <div class="mascot-quick-actions">
+                    <button class="mascot-action-btn" onclick="changeMascotMessage('Let\'s practice being a great friend today! 🤝')">
+                        <span>💪</span> Daily Quest
+                    </button>
+                    <button class="mascot-action-btn" onclick="changeMascotMessage('How are you feeling right now? Tell me! 💭')">
+                        <span>😊</span> Mood Check
+                    </button>
+                    <button class="mascot-action-btn" onclick="changeMascotMessage('You\'ve earned 3 new badges! Let\'s see them! 🏆')">
+                        <span>🏆</span> My Badges
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="kids-main-content">
+                <!-- Level Progress -->
+                <div class="kids-level-bar">
+                    <div class="level-info">
+                        <span class="level-badge">🛡️ Level 7</span>
+                        <span class="level-title">Empathy Explorer</span>
+                    </div>
+                    <div class="level-progress-track">
+                        <div class="level-progress-fill" style="width: 65%"></div>
+                        <span class="level-progress-text">650 / 1000 XP to Level 8</span>
+                    </div>
+                </div>
+
+                <!-- Current Mission -->
+                <div class="kids-current-mission">
+                    <div class="mission-header">
+                        <h2>🗺️ Current Quest</h2>
+                        <span class="mission-difficulty easy">Easy</span>
+                    </div>
+                    <div class="mission-card-large">
+                        <div class="mission-card-image">🏔️</div>
+                        <div class="mission-card-info">
+                            <h3>The Empathy Adventure</h3>
+                            <p>Help your friend who is feeling sad. Choose the right words to cheer them up!</p>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 60%"></div>
+                            </div>
+                            <div class="mission-meta">
+                                <span>📖 3 of 5 steps done</span>
+                                <span>🎁 +50 XP</span>
+                            </div>
+                        </div>
+                        <button class="kids-continue-btn">Continue Quest →</button>
+                    </div>
+                </div>
+
+                <!-- Mission Grid -->
+                <h2 class="kids-section-title">🎮 Today's Missions</h2>
+                <div class="kids-missions-grid">
+                    <div class="kids-mission-tile orange-tile" onclick="showKidsMission('spin')">
+                        <div class="tile-icon">🎡</div>
+                        <h4>Spin the Wheel</h4>
+                        <p>Answer fun questions!</p>
+                        <span class="tile-reward">+30 XP</span>
+                    </div>
+                    <div class="kids-mission-tile green-tile" onclick="showKidsMission('kindness')">
+                        <div class="tile-icon">💚</div>
+                        <h4>Kindness Quest</h4>
+                        <p>Do something nice today</p>
+                        <span class="tile-reward">+25 XP</span>
+                    </div>
+                    <div class="kids-mission-tile pink-tile" onclick="showKidsMission('journal')">
+                        <div class="tile-icon">📔</div>
+                        <h4>Feelings Journal</h4>
+                        <p>How are you feeling?</p>
+                        <span class="tile-reward">+20 XP</span>
+                    </div>
+                    <div class="kids-mission-tile blue-tile" onclick="showKidsMission('circle')">
+                        <div class="tile-icon">👫</div>
+                        <h4>Friend Circle</h4>
+                        <p>Chat with friends!</p>
+                        <span class="tile-reward">+15 XP</span>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <h2 class="kids-section-title">🏆 Recent Badges</h2>
+                <div class="kids-badges-row">
+                    <div class="kids-badge earned">
+                        <span class="badge-icon">🌟</span>
+                        <span class="badge-name">Super Listener</span>
+                    </div>
+                    <div class="kids-badge earned">
+                        <span class="badge-icon">🤝</span>
+                        <span class="badge-name">Kind Helper</span>
+                    </div>
+                    <div class="kids-badge earned">
+                        <span class="badge-icon">📖</span>
+                        <span class="badge-name">Story Teller</span>
+                    </div>
+                    <div class="kids-badge locked">
+                        <span class="badge-icon">🔒</span>
+                        <span class="badge-name">Team Leader</span>
+                    </div>
+                    <div class="kids-badge locked">
+                        <span class="badge-icon">🔒</span>
+                        <span class="badge-name">Brave Speaker</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kids Bottom Nav -->
+        <nav class="kids-bottom-nav">
+            <button class="kids-bnav-item active">
+                <span class="bnav-icon">🏠</span>
+                <span class="bnav-label">Home</span>
+            </button>
+            <button class="kids-bnav-item">
+                <span class="bnav-icon">🗺️</span>
+                <span class="bnav-label">Quests</span>
+            </button>
+            <button class="kids-bnav-item bnav-center">
+                <span class="bnav-icon-large">🐉</span>
+            </button>
+            <button class="kids-bnav-item">
+                <span class="bnav-icon">🏆</span>
+                <span class="bnav-label">Badges</span>
+            </button>
+            <button class="kids-bnav-item">
+                <span class="bnav-icon">👤</span>
+                <span class="bnav-label">Me</span>
+            </button>
+        </nav>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TEENS DASHBOARD                              -->
+    <!-- ============================================ -->
+    <section id="teens-dashboard" class="page dashboard-page">
+        <div class="teens-bg"></div>
+
+        <!-- Teens Side Rail -->
+        <nav class="teens-rail">
+            <div class="teens-rail-logo">◈</div>
+            <div class="teens-rail-items">
+                <button class="teens-rail-btn active" data-tooltip="Dashboard">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                </button>
+                <button class="teens-rail-btn" data-tooltip="Social Lab">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </button>
+                <button class="teens-rail-btn" data-tooltip="Mastery">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                </button>
+                <button class="teens-rail-btn" data-tooltip="Journal">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </button>
+                <button class="teens-rail-btn" data-tooltip="Community">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </button>
+            </div>
+            <button class="teens-rail-btn" onclick="showPage('landing-page')" data-tooltip="Exit">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </button>
+        </nav>
+
+        <div class="teens-main">
+            <!-- Teens Top Bar -->
+            <div class="teens-topbar">
+                <div class="teens-greeting">
+                    <h1>Hey, <span class="neon-text">Alex</span> 👋</h1>
+                    <p>Level 15 • Social Architect</p>
+                </div>
+                <div class="teens-topbar-right">
+                    <div class="teens-streak-pill">🔥 12 day streak</div>
+                    <div class="teens-xp-pill">⚡ 4,820 XP</div>
+                    <div class="teens-avatar-ring">
+                        <div class="teens-avatar">A</div>
+                        <div class="teens-level-ring"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teens Stats Row -->
+            <div class="teens-stats-row">
+                <div class="teens-stat-card">
+                    <div class="teens-stat-icon" style="background: linear-gradient(135deg, #7C4DFF, #B388FF)">📊</div>
+                    <div class="teens-stat-info">
+                        <span class="teens-stat-value">78</span>
+                        <span class="teens-stat-label">Growth Score</span>
+                    </div>
+                    <div class="teens-stat-trend up">↑ 12%</div>
+                </div>
+                <div class="teens-stat-card">
+                    <div class="teens-stat-icon" style="background: linear-gradient(135deg, #FF4081, #FF80AB)">🎯</div>
+                    <div class="teens-stat-info">
+                        <span class="teens-stat-value">23</span>
+                        <span class="teens-stat-label">Missions Done</span>
+                    </div>
+                    <div class="teens-stat-trend up">↑ 5 this week</div>
+                </div>
+                <div class="teens-stat-card">
+                    <div class="teens-stat-icon" style="background: linear-gradient(135deg, #00E5FF, #84FFFF)">🧠</div>
+                    <div class="teens-stat-info">
+                        <span class="teens-stat-value">8</span>
+                        <span class="teens-stat-label">Skills Leveled</span>
+                    </div>
+                    <div class="teens-stat-trend up">↑ 2 new</div>
+                </div>
+                <div class="teens-stat-card">
+                    <div class="teens-stat-icon" style="background: linear-gradient(135deg, #69F0AE, #B9F6CA)">👥</div>
+                    <div class="teens-stat-info">
+                        <span class="teens-stat-value">Top 12%</span>
+                        <span class="teens-stat-label">Community Rank</span>
+                    </div>
+                    <div class="teens-stat-trend up">↑ 3 spots</div>
+                </div>
+            </div>
+
+            <!-- Teens Content Grid -->
+            <div class="teens-content-grid">
+                <!-- Social Lab Card -->
+                <div class="teens-social-lab-card">
+                    <div class="teens-card-header">
+                        <h2>🧪 Social Lab</h2>
+                        <button class="teens-see-all">See All →</button>
+                    </div>
+                    <div class="teens-scenario-list">
+                        <div class="teens-scenario-item" onclick="openTeensSocialLab()">
+                            <div class="scenario-difficulty medium">Medium</div>
+                            <h4>Handle Peer Pressure</h4>
+                            <p>Your friend wants you to skip class. Practice saying no with confidence.</p>
+                            <div class="scenario-meta">
+                                <span>⏱ 10 min</span>
+                                <span>⚡ +45 XP</span>
+                            </div>
+                            <div class="scenario-confidence-bar">
+                                <span>Confidence: 72%</span>
+                                <div class="conf-track"><div class="conf-fill" style="width:72%"></div></div>
+                            </div>
+                        </div>
+                        <div class="teens-scenario-item">
+                            <div class="scenario-difficulty hard">Hard</div>
+                            <h4>Job Interview Practice</h4>
+                            <p>Face an AI interviewer for a summer internship position.</p>
+                            <div class="scenario-meta">
+                                <span>⏱ 15 min</span>
+                                <span>⚡ +60 XP</span>
+                            </div>
+                            <div class="scenario-confidence-bar">
+                                <span>Confidence: 58%</span>
+                                <div class="conf-track"><div class="conf-fill" style="width:58%"></div></div>
+                            </div>
+                        </div>
+                        <div class="teens-scenario-item">
+                            <div class="scenario-difficulty easy">Easy</div>
+                            <h4>Making New Friends</h4>
+                            <p>Practice starting conversations at a new school event.</p>
+                            <div class="scenario-meta">
+                                <span>⏱ 8 min</span>
+                                <span>⚡ +30 XP</span>
+                            </div>
+                            <div class="scenario-confidence-bar">
+                                <span>Confidence: 85%</span>
+                                <div class="conf-track"><div class="conf-fill" style="width:85%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="teens-right-column">
+                    <!-- Mood Check -->
+                    <div class="teens-mood-card">
+                        <h3>How are you feeling?</h3>
+                        <div class="mood-emoji-row">
+                            <button class="mood-emoji" data-mood="great" onclick="selectMood(this)">😄</button>
+                            <button class="mood-emoji" data-mood="good" onclick="selectMood(this)">🙂</button>
+                            <button class="mood-emoji" data-mood="okay" onclick="selectMood(this)">😐</button>
+                            <button class="mood-emoji" data-mood="low" onclick="selectMood(this)">😔</button>
+                            <button class="mood-emoji" data-mood="stressed" onclick="selectMood(this)">😰</button>
+                        </div>
+                        <div class="mood-streak-cal">
+                            <h4>This Week</h4>
+                            <div class="mood-cal-row">
+                                <div class="mood-day checked">M<span>😄</span></div>
+                                <div class="mood-day checked">T<span>🙂</span></div>
+                                <div class="mood-day checked">W<span>😄</span></div>
+                                <div class="mood-day checked">T<span>😐</span></div>
+                                <div class="mood-day checked">F<span>🙂</span></div>
+                                <div class="mood-day">S<span>?</span></div>
+                                <div class="mood-day">S<span>?</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mastery Tracks -->
+                    <div class="teens-mastery-card">
+                        <h3>📈 Mastery Tracks</h3>
+                        <div class="mastery-track-item">
+                            <div class="mastery-label">
+                                <span>🎤 Public Speaking</span>
+                                <span class="mastery-pct">65%</span>
+                            </div>
+                            <div class="mastery-bar"><div class="mastery-fill purple-fill" style="width:65%"></div></div>
+                        </div>
+                        <div class="mastery-track-item">
+                            <div class="mastery-label">
+                                <span>🧠 Emotional Intelligence</span>
+                                <span class="mastery-pct">80%</span>
+                            </div>
+                            <div class="mastery-bar"><div class="mastery-fill pink-fill" style="width:80%"></div></div>
+                        </div>
+                        <div class="mastery-track-item">
+                            <div class="mastery-label">
+                                <span>⏰ Time Management</span>
+                                <span class="mastery-pct">45%</span>
+                            </div>
+                            <div class="mastery-bar"><div class="mastery-fill cyan-fill" style="width:45%"></div></div>
+                        </div>
+                        <div class="mastery-track-item">
+                            <div class="mastery-label">
+                                <span>👑 Leadership</span>
+                                <span class="mastery-pct">55%</span>
+                            </div>
+                            <div class="mastery-bar"><div class="mastery-fill green-fill" style="width:55%"></div></div>
+                        </div>
+                        <div class="mastery-track-item">
+                            <div class="mastery-label">
+                                <span>⚖️ Conflict Resolution</span>
+                                <span class="mastery-pct">70%</span>
+                            </div>
+                            <div class="mastery-bar"><div class="mastery-fill orange-fill" style="width:70%"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Community Circles Preview -->
+                    <div class="teens-community-card">
+                        <h3>👥 Community Circles</h3>
+                        <div class="community-circle-item">
+                            <div class="circle-avatars">
+                                <span class="circle-av" style="background:#7C4DFF">A</span>
+                                <span class="circle-av" style="background:#FF4081">K</span>
+                                <span class="circle-av" style="background:#00E5FF">R</span>
+                                <span class="circle-av-more">+12</span>
+                            </div>
+                            <div class="circle-info">
+                                <h4>Interview Prep Club</h4>
+                                <p>3 new posts today</p>
+                            </div>
+                        </div>
+                        <div class="community-circle-item">
+                            <div class="circle-avatars">
+                                <span class="circle-av" style="background:#69F0AE">S</span>
+                                <span class="circle-av" style="background:#FFD740">M</span>
+                                <span class="circle-av-more">+8</span>
+                            </div>
+                            <div class="circle-info">
+                                <h4>Teen Leaders</h4>
+                                <p>Weekly challenge active</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ADULTS DASHBOARD                             -->
+    <!-- ============================================ -->
+    <section id="adults-dashboard" class="page dashboard-page">
+        <div class="adults-bg"></div>
+
+        <!-- Adults Sidebar -->
+        <nav class="adults-sidebar" id="adults-sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-logo-icon">◈</span>
+                <span class="sidebar-logo-text">AURA</span>
+                <button class="sidebar-collapse-btn" onclick="toggleSidebar()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <span class="sidebar-section-label">MAIN</span>
+                <button class="sidebar-nav-item active" data-section="overview">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="sidebar-nav-item" data-section="social-lab">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span>Social Lab</span>
+                </button>
+                <button class="sidebar-nav-item" data-section="mastery">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                    <span>Mastery Tracks</span>
+                </button>
+                <button class="sidebar-nav-item" data-section="journal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <span>Journal</span>
+                </button>
+                <button class="sidebar-nav-item" data-section="mirror">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/></svg>
+                    <span>Mirror-Tech</span>
+                </button>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <span class="sidebar-section-label">SOCIAL</span>
+                <button class="sidebar-nav-item" data-section="community">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span>Community</span>
+                    <span class="sidebar-badge">3</span>
+                </button>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <span class="sidebar-section-label">ACCOUNT</span>
+                <button class="sidebar-nav-item" data-section="settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <span>Settings</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="showPage('landing-page')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="sidebar-user-avatar">P</div>
+                <div class="sidebar-user-info">
+                    <span class="sidebar-user-name">Priya K.</span>
+                    <span class="sidebar-user-plan">Pro Plan</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Adults Main -->
+        <div class="adults-main" id="adults-main">
+            <!-- Top Bar -->
+            <div class="adults-topbar">
+                <div class="adults-greeting">
+                    <h1>Good evening, <span class="adults-accent-text">Priya</span></h1>
+                    <p>Here's your growth snapshot for today</p>
+                </div>
+                <div class="adults-topbar-actions">
+                    <div class="adults-search-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" placeholder="Search missions, skills..." id="adults-search">
+                    </div>
+                    <button class="adults-notif-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span class="notif-dot"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="adults-stats-row">
+                <div class="adults-stat-card">
+                    <div class="adults-stat-header">
+                        <span class="adults-stat-label">Weekly Growth Score</span>
+                        <span class="adults-stat-trend up">↑ 8%</span>
+                    </div>
+                    <div class="adults-stat-value-row">
+                        <span class="adults-stat-big">87<span class="adults-stat-unit">/100</span></span>
+                    </div>
+                    <div class="adults-mini-chart">
+                        <div class="mini-bar" style="height:45%"></div>
+                        <div class="mini-bar" style="height:60%"></div>
+                        <div class="mini-bar" style="height:55%"></div>
+                        <div class="mini-bar" style="height:70%"></div>
+                        <div class="mini-bar" style="height:65%"></div>
+                        <div class="mini-bar" style="height:80%"></div>
+                        <div class="mini-bar active" style="height:87%"></div>
+                    </div>
+                </div>
+                <div class="adults-stat-card">
+                    <div class="adults-stat-header">
+                        <span class="adults-stat-label">Active Streak</span>
+                        <span class="adults-stat-trend up">Personal best!</span>
+                    </div>
+                    <div class="adults-stat-value-row">
+                        <span class="adults-stat-big">14<span class="adults-stat-unit"> days</span></span>
+                    </div>
+                    <div class="adults-streak-dots">
+                        <span class="streak-dot filled"></span>
+                        <span class="streak-dot filled"></span>
+                        <span class="streak-dot filled"></span>
+                        <span class="streak-dot filled"></span>
+                        <span class="streak-dot filled"></span>
+                        <span class="streak-dot filled"></span>
+                        <span class="streak-dot filled"></span>
+                        <span class="streak-dot filled today"></span>
+                        <span class="streak-dot empty"></span>
+                        <span class="streak-dot empty"></span>
+                    </div>
+                </div>
+                <div class="adults-stat-card">
+                    <div class="adults-stat-header">
+                        <span class="adults-stat-label">Skills Mastered</span>
+                        <span class="adults-stat-trend up">+2 this month</span>
+                    </div>
+                    <div class="adults-stat-value-row">
+                        <span class="adults-stat-big">12<span class="adults-stat-unit"> / 24</span></span>
+                    </div>
+                    <div class="adults-skill-dots">
+                        <span class="skill-dot mastered"></span>
+                        <span class="skill-dot mastered"></span>
+                        <span class="skill-dot mastered"></span>
+                        <span class="skill-dot mastered"></span>
+                        <span class="skill-dot mastered"></span>
+                        <span class="skill-dot mastered"></span>
+                        <span class="skill-dot progress"></span>
+                        <span class="skill-dot progress"></span>
+                        <span class="skill-dot locked"></span>
+                        <span class="skill-dot locked"></span>
+                    </div>
+                </div>
+                <div class="adults-stat-card">
+                    <div class="adults-stat-header">
+                        <span class="adults-stat-label">Community Rank</span>
+                        <span class="adults-stat-trend up">↑ 2 spots</span>
+                    </div>
+                    <div class="adults-stat-value-row">
+                        <span class="adults-stat-big">Top 5<span class="adults-stat-unit">%</span></span>
+                    </div>
+                    <div class="adults-rank-badge">🏆 Elite Performer</div>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="adults-content-grid">
+                <!-- Radar Chart -->
+                <div class="adults-radar-card">
+                    <div class="adults-card-header">
+                        <h2>Soft Skills Radar</h2>
+                        <div class="adults-card-tabs">
+                            <button class="card-tab active">This Week</button>
+                            <button class="card-tab">This Month</button>
+                            <button class="card-tab">All Time</button>
+                        </div>
+                    </div>
+                    <div class="radar-chart-container">
+                        <canvas id="radar-chart" width="380" height="380"></canvas>
+                    </div>
+                    <div class="radar-legend">
+                        <div class="legend-item"><span class="legend-dot" style="background:#00E5FF"></span>Current</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:rgba(124,77,255,0.4)"></span>Last Week</div>
+                    </div>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="adults-right-panel">
+                    <!-- Today's Missions -->
+                    <div class="adults-missions-card">
+                        <div class="adults-card-header">
+                            <h2>Today's Missions</h2>
+                            <span class="missions-count">2/5 done</span>
+                        </div>
+                        <div class="adults-mission-list">
+                            <div class="adults-mission-item completed">
+                                <div class="mission-checkbox checked">✓</div>
+                                <div class="mission-info">
+                                    <h4>Morning Journal Entry</h4>
+                                    <span class="mission-xp">+15 XP</span>
+                                </div>
+                            </div>
+                            <div class="adults-mission-item completed">
+                                <div class="mission-checkbox checked">✓</div>
+                                <div class="mission-info">
+                                    <h4>Empathy Micro-Exercise</h4>
+                                    <span class="mission-xp">+20 XP</span>
+                                </div>
+                            </div>
+                            <div class="adults-mission-item">
+                                <div class="mission-checkbox"></div>
+                                <div class="mission-info">
+                                    <h4>Negotiate a Deal (Roleplay)</h4>
+                                    <span class="mission-xp">+45 XP</span>
+                                </div>
+                            </div>
+                            <div class="adults-mission-item">
+                                <div class="mission-checkbox"></div>
+                                <div class="mission-info">
+                                    <h4>5-min Reflection Journal</h4>
+                                    <span class="mission-xp">+15 XP</span>
+                                </div>
+                            </div>
+                            <div class="adults-mission-item">
+                                <div class="mission-checkbox"></div>
+                                <div class="mission-info">
+                                    <h4>Body Language Practice</h4>
+                                    <span class="mission-xp">+30 XP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sentiment Timeline -->
+                    <div class="adults-sentiment-card">
+                        <div class="adults-card-header">
+                            <h2>Mood Trends</h2>
+                            <span class="sentiment-period">Last 7 days</span>
+                        </div>
+                        <div class="sentiment-timeline">
+                            <div class="sentiment-day">
+                                <div class="sentiment-dot" style="background:#69F0AE; bottom:75%"></div>
+                                <span class="sentiment-label">Mon</span>
+                            </div>
+                            <div class="sentiment-day">
+                                <div class="sentiment-dot" style="background:#69F0AE; bottom:80%"></div>
+                                <span class="sentiment-label">Tue</span>
+                            </div>
+                            <div class="sentiment-day">
+                                <div class="sentiment-dot" style="background:#FFD740; bottom:55%"></div>
+                                <span class="sentiment-label">Wed</span>
+                            </div>
+                            <div class="sentiment-day">
+                                <div class="sentiment-dot" style="background:#69F0AE; bottom:70%"></div>
+                                <span class="sentiment-label">Thu</span>
+                            </div>
+                            <div class="sentiment-day">
+                                <div class="sentiment-dot" style="background:#FFD740; bottom:60%"></div>
+                                <span class="sentiment-label">Fri</span>
+                            </div>
+                            <div class="sentiment-day">
+                                <div class="sentiment-dot" style="background:#69F0AE; bottom:85%"></div>
+                                <span class="sentiment-label">Sat</span>
+                            </div>
+                            <div class="sentiment-day today">
+                                <div class="sentiment-dot pulse" style="background:#00E5FF; bottom:78%"></div>
+                                <span class="sentiment-label">Today</span>
+                            </div>
+                        </div>
+                        <div class="sentiment-summary">
+                            <span class="sentiment-tag positive">😊 Mostly Positive</span>
+                            <span class="sentiment-tag neutral">Energy: High</span>
+                            <span class="sentiment-tag positive">Burnout Risk: Low</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SOCIAL LAB OVERLAY (Teens)                   -->
+    <!-- ============================================ -->
+    <div id="social-lab-overlay" class="overlay hidden">
+        <div class="social-lab-container">
+            <div class="social-lab-header">
+                <div class="lab-scenario-info">
+                    <h2>🧪 Handle Peer Pressure</h2>
+                    <div class="lab-meta">
+                        <span class="lab-difficulty medium">Medium</span>
+                        <span class="lab-timer" id="lab-timer">⏱ 10:00</span>
+                    </div>
+                </div>
+                <button class="lab-close-btn" onclick="closeSocialLab()">✕</button>
+            </div>
+            <div class="social-lab-body">
+                <div class="lab-chat" id="lab-chat">
+                    <div class="lab-message ai">
+                        <div class="lab-avatar-ai">AI</div>
+                        <div class="lab-bubble">
+                            <p>Hey! We're all bunking the next class and going to the mall. You should totally come with us! It's going to be so much fun. 🎉</p>
+                            <span class="lab-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-input-area">
+                    <div class="lab-suggestions">
+                        <button class="lab-suggestion" onclick="sendLabMessage(this.textContent)">I appreciate the invite, but I need to attend class today.</button>
+                        <button class="lab-suggestion" onclick="sendLabMessage(this.textContent)">Sounds fun, but I have a test coming up. Maybe next time?</button>
+                        <button class="lab-suggestion" onclick="sendLabMessage(this.textContent)">Let me think about it...</button>
+                    </div>
+                    <div class="lab-input-row">
+                        <input type="text" placeholder="Type your response..." id="lab-input" onkeypress="if(event.key==='Enter')sendLabMessage(this.value)">
+                        <button class="lab-send-btn" onclick="sendLabMessage(document.getElementById('lab-input').value)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                        <button class="lab-mic-btn">🎤</button>
+                    </div>
+                </div>
+            </div>
+            <div class="lab-feedback-panel">
+                <h3>Real-time Feedback</h3>
+                <div class="feedback-metric">
+                    <span class="metric-label">Confidence</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width:0%" id="conf-meter"></div></div>
+                    <span class="metric-value" id="conf-value">—</span>
+                </div>
+                <div class="feedback-metric">
+                    <span class="metric-label">Assertiveness</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width:0%" id="assert-meter"></div></div>
+                    <span class="metric-value" id="assert-value">—</span>
+                </div>
+                <div class="feedback-metric">
+                    <span class="metric-label">Empathy</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width:0%" id="emp-meter"></div></div>
+                    <span class="metric-value" id="emp-value">—</span>
+                </div>
+                <div class="feedback-metric">
+                    <span class="metric-label">Clarity</span>
+                    <div class="metric-bar"><div class="metric-fill" style="width:0%" id="clarity-meter"></div></div>
+                    <span class="metric-value" id="clarity-value">—</span>
+                </div>
+                <div class="feedback-sentiment">
+                    <span>Emotional Tone:</span>
+                    <span class="sentiment-badge" id="sentiment-badge">Awaiting input...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spin the Wheel Overlay (Kids) -->
+    <div id="spin-overlay" class="overlay hidden">
+        <div class="spin-container">
+            <button class="spin-close" onclick="closeSpinWheel()">✕</button>
+            <h2 class="spin-title">🎡 Spin the Wheel!</h2>
+            <div class="wheel-wrapper">
+                <div class="wheel" id="spin-wheel">
+                    <div class="wheel-segment seg-1">🤝 Empathy</div>
+                    <div class="wheel-segment seg-2">🎤 Speaking</div>
+                    <div class="wheel-segment seg-3">⏰ Patience</div>
+                    <div class="wheel-segment seg-4">💚 Kindness</div>
+                    <div class="wheel-segment seg-5">🧠 Thinking</div>
+                    <div class="wheel-segment seg-6">👫 Teamwork</div>
+                </div>
+                <div class="wheel-pointer">▼</div>
+            </div>
+            <button class="spin-btn" id="spin-btn" onclick="spinWheel()">SPIN! 🎉</button>
+            <div class="spin-result hidden" id="spin-result">
+                <h3 id="spin-question-title"></h3>
+                <p id="spin-question-text"></p>
+                <div class="spin-options" id="spin-options"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

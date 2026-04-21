@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">AURA</string>
+    <string name="tagline">Master your soft skills. Evolve your personality.</string>
+
+    <!-- Onboarding -->
+    <string name="welcome_title">Welcome to AURA</string>
+    <string name="welcome_subtitle">The first AI-powered soft skills coach that grows with you</string>
+    <string name="whats_your_name">What should we call you?</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="how_old">Pick your age group</string>
+    <string name="kids_label">Kids\n6–12</string>
+    <string name="teens_label">Teens\n13–21</string>
+    <string name="adults_label">Adults\n22+</string>
+    <string name="ready_title">Your journey begins!</string>
+    <string name="lets_go">Let\'s Go!</string>
+    <string name="next">Next</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Home</string>
+    <string name="nav_social_lab">Social Lab</string>
+    <string name="nav_missions">Missions</string>
+    <string name="nav_avatar">Avatar</string>
+
+    <!-- Dashboard -->
+    <string name="good_morning">Good Morning</string>
+    <string name="xp_to_next">%d XP to next evolution</string>
+    <string name="social_lab_title">Social Lab</string>
+    <string name="social_lab_desc">Practice real-life conversations with AI</string>
+    <string name="missions_title">Missions</string>
+    <string name="missions_desc">Complete tasks to earn XP and grow</string>
+    <string name="avatar_title">My Avatar</string>
+    <string name="avatar_desc">Watch yourself evolve</string>
+
+    <!-- Social Lab -->
+    <string name="start_session">Start Session</string>
+    <string name="end_session">End Session</string>
+    <string name="type_message">Type your response…</string>
+    <string name="send">Send</string>
+
+    <!-- Missions -->
+    <string name="daily_missions">Today\'s Missions</string>
+    <string name="challenges">Challenges</string>
+    <string name="quick_tasks">Quick Tasks</string>
+    <string name="spin_wheel">Spin the Wheel!</string>
+
+    <!-- Avatar -->
+    <string name="evolution_timeline">Evolution Timeline</string>
+    <string name="skills_radar">Skills Overview</string>
+    <string name="stage_up_title">You\'ve Evolved!</string>
+
+    <!-- Avatar Stage Names -->
+    <string name="stage_1">Seed</string>
+    <string name="stage_2">Sprout</string>
+    <string name="stage_3">Bloom</string>
+    <string name="stage_4">Radiant</string>
+    <string name="stage_5">Ascended</string>
+</resources>
