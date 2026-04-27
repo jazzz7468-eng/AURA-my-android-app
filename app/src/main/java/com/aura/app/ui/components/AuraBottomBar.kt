@@ -39,6 +39,7 @@ fun AuraBottomBar(
         BottomBarItem(Screen.Dashboard.route, "Home", Icons.Filled.Home, Icons.Outlined.Home, "🏠"),
         BottomBarItem(Screen.SocialLab.route, "Social Lab", Icons.Filled.Psychology, Icons.Outlined.Psychology, "🧪"),
         BottomBarItem(Screen.Missions.route, "Missions", Icons.Filled.EmojiEvents, Icons.Outlined.EmojiEvents, "🎯"),
+        BottomBarItem(Screen.Journal.route, "Journal", Icons.Filled.Book, Icons.Outlined.Book, "📔"),
         BottomBarItem(Screen.Avatar.route, "Avatar", Icons.Filled.Person, Icons.Outlined.Person, "🧬"),
     )
 

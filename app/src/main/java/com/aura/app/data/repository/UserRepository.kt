@@ -19,7 +19,13 @@ class UserRepository @Inject constructor(
     val completedMissions: Flow<List<CompletedMission>> = userDao.getCompletedMissions()
     val sessions: Flow<List<SocialLabSession>> = userDao.getSessions()
 
-    suspend fun createProfile(name: String, ageGroup: String) {
+    suspend fun createProfile(
+        name: String, 
+        ageGroup: String,
+        baseEmpathy: Int = 0,
+        baseConfidence: Int = 0,
+        baseCommunication: Int = 0
+    ) {
         val today = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
         userDao.upsertProfile(
             UserProfile(
@@ -28,6 +34,10 @@ class UserRepository @Inject constructor(
                 hasOnboarded = true,
                 lastActiveDate = today,
                 streakDays = 1,
+                empathy = baseEmpathy,
+                confidence = baseConfidence,
+                communication = baseCommunication,
+                xp = 100, // Start at level 2 visually so they see immediate progress
             )
         )
     }

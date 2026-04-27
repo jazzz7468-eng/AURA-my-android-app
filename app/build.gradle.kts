@@ -22,7 +22,7 @@ android {
         }
 
         // Gemini API key — replace with your key
-        buildConfigField("String", "GEMINI_API_KEY", "\"YOUR_GEMINI_API_KEY_HERE\"")
+        buildConfigField("String", "GEMINI_API_KEY", "\"AIzaSyAIy9A1W3NjbQIP5Ql8fgG-vcEI5UtQ_8k\"")
     }
 
     buildTypes {
@@ -102,6 +102,27 @@ dependencies {
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // CameraX (Mirror-Tech)
+    val cameraxVersion = "1.3.1"
+    implementation("androidx.camera:camera-core:$cameraxVersion")
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
+
+    // ML Kit Pose Detection (On-device, no cloud needed)
+    implementation("com.google.mlkit:pose-detection:18.0.0-beta4")
+    implementation("com.google.mlkit:pose-detection-accurate:18.0.0-beta4")
+
+    // Accompanist (Permissions handling for camera)
+    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
+
+    // WorkManager (For Daily Notifications)
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+    // Jetpack Glance (For Compose-based Home Screen Widget)
+    implementation("androidx.glance:glance-appwidget:1.0.0")
+    implementation("androidx.glance:glance-material3:1.0.0")
 
     // Debug
     debugImplementation("androidx.compose.ui:ui-tooling")

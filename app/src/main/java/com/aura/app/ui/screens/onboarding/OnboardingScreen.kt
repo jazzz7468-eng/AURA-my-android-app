@@ -11,7 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,11 +31,16 @@ import com.aura.app.ui.theme.*
 
 @Composable
 fun OnboardingScreen(
-    onComplete: (name: String, ageGroup: String) -> Unit,
+    onComplete: (name: String, ageGroup: String, empathy: Int, confidence: Int, comms: Int) -> Unit,
 ) {
     var step by remember { mutableIntStateOf(0) }
     var name by remember { mutableStateOf("") }
     var selectedAgeGroup by remember { mutableStateOf("") }
+
+    // Quiz answers (0, 1, or 2 for three options)
+    var q1Answer by remember { mutableIntStateOf(-1) }
+    var q2Answer by remember { mutableIntStateOf(-1) }
+    var q3Answer by remember { mutableIntStateOf(-1) }
 
     // Aurora gradient background animation
     val infiniteTransition = rememberInfiniteTransition(label = "aurora")
@@ -90,10 +95,26 @@ fun OnboardingScreen(
                     onSelect = { selectedAgeGroup = it },
                     onNext = { if (selectedAgeGroup.isNotBlank()) step = 3 },
                 )
-                3 -> ReadyStep(
+                3 -> QuizStep(
+                    q1 = q1Answer, onQ1 = { q1Answer = it },
+                    q2 = q2Answer, onQ2 = { q2Answer = it },
+                    q3 = q3Answer, onQ3 = { q3Answer = it },
+                    onNext = { if (q1Answer != -1 && q2Answer != -1 && q3Answer != -1) step = 4 }
+                )
+                4 -> ReadyStep(
                     name = name,
                     ageGroup = selectedAgeGroup,
-                    onStart = { onComplete(name, selectedAgeGroup) },
+                    onStart = {
+                        // Calculate base skills from quiz
+                        // Q1 (Empathy): 0=Low, 1=Med, 2=High
+                        // Q2 (Confidence): 0=Low, 1=Med, 2=High
+                        // Q3 (Communication): 0=Low, 1=Med, 2=High
+                        val baseEmpathy = listOf(10, 25, 40)[q1Answer.coerceIn(0, 2)]
+                        val baseConfidence = listOf(10, 25, 40)[q2Answer.coerceIn(0, 2)]
+                        val baseComms = listOf(10, 25, 40)[q3Answer.coerceIn(0, 2)]
+                        
+                        onComplete(name, selectedAgeGroup, baseEmpathy, baseConfidence, baseComms)
+                    },
                 )
             }
         }
@@ -105,7 +126,7 @@ fun OnboardingScreen(
                 .padding(bottom = 40.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            repeat(4) { index ->
+            repeat(5) { index ->
                 Box(
                     modifier = Modifier
                         .size(if (index == step) 24.dp else 8.dp, 8.dp)
@@ -183,7 +204,7 @@ private fun WelcomeStep(onNext: () -> Unit) {
                 fontSize = 16.sp,
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.ArrowForward, contentDescription = null)
+            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
         }
     }
 }
@@ -253,7 +274,7 @@ private fun NameStep(
         ) {
             Text("Next", fontWeight = FontWeight.Bold, fontSize = 16.sp)
             Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.ArrowForward, contentDescription = null)
+            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
         }
     }
 }
@@ -331,7 +352,7 @@ private fun AgeGroupStep(
         ) {
             Text("Next", fontWeight = FontWeight.Bold, fontSize = 16.sp)
             Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.ArrowForward, contentDescription = null)
+            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
         }
     }
 }
@@ -466,6 +487,127 @@ private fun ReadyStep(
             ),
         ) {
             Text("Let's Go! 🚀", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        }
+    }
+}
+
+@Composable
+private fun QuizStep(
+    q1: Int, onQ1: (Int) -> Unit,
+    q2: Int, onQ2: (Int) -> Unit,
+    q3: Int, onQ3: (Int) -> Unit,
+    onNext: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+    ) {
+        Text(
+            text = "Let's discover your Aura",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+        )
+
+        // Q1: Empathy
+        QuizQuestion(
+            question = "When a friend is upset, I usually...",
+            options = listOf(
+                "Try to fix their problem",
+                "Give them space",
+                "Listen and validate their feelings"
+            ),
+            selectedIndex = q1,
+            onSelect = onQ1
+        )
+
+        // Q2: Confidence
+        QuizQuestion(
+            question = "In a group setting, I tend to...",
+            options = listOf(
+                "Stay quiet and observe",
+                "Speak up if I have to",
+                "Take charge of the conversation"
+            ),
+            selectedIndex = q2,
+            onSelect = onQ2
+        )
+
+        // Q3: Communication
+        QuizQuestion(
+            question = "When giving feedback, I am...",
+            options = listOf(
+                "Direct and blunt",
+                "Hesitant to hurt feelings",
+                "Clear but considerate"
+            ),
+            selectedIndex = q3,
+            onSelect = onQ3
+        )
+
+        Button(
+            onClick = onNext,
+            enabled = q1 != -1 && q2 != -1 && q3 != -1,
+            modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .height(56.dp),
+            shape = RoundedCornerShape(28.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF00E5FF),
+                contentColor = Color(0xFF0B1629),
+            ),
+        ) {
+            Text("Reveal My Aura", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        }
+    }
+}
+
+@Composable
+private fun QuizQuestion(
+    question: String,
+    options: List<String>,
+    selectedIndex: Int,
+    onSelect: (Int) -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = question,
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            options.forEachIndexed { index, text ->
+                val isSelected = index == selectedIndex
+                Surface(
+                    onClick = { onSelect(index) },
+                    modifier = Modifier.weight(1f).height(64.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    color = if (isSelected) Color(0xFF00E5FF).copy(alpha = 0.2f) else Color.White.copy(alpha = 0.05f),
+                    border = androidx.compose.foundation.BorderStroke(
+                        width = if (isSelected) 2.dp else 1.dp,
+                        color = if (isSelected) Color(0xFF00E5FF) else Color.White.copy(alpha = 0.1f)
+                    )
+                ) {
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(4.dp)) {
+                        Text(
+                            text = text,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = if (isSelected) Color(0xFF00E5FF) else Color.White.copy(alpha = 0.7f),
+                            textAlign = TextAlign.Center,
+                            lineHeight = 14.sp
+                        )
+                    }
+                }
+            }
         }
     }
 }

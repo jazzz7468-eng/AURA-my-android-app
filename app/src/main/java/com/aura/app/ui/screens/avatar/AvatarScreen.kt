@@ -26,6 +26,7 @@ import com.aura.app.data.local.entities.UserProfile
 import com.aura.app.ui.components.AdaptiveCard
 import com.aura.app.ui.components.XPProgressBar
 import com.aura.app.ui.components.avatar.EvolutionTimeline
+import com.aura.app.ui.components.avatar.LivingAura
 import com.aura.app.ui.components.avatar.RadarChart
 import com.aura.app.ui.theme.AuraTheme
 import com.aura.app.util.XPManager

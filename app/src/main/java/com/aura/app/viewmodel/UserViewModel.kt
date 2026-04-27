@@ -26,9 +26,15 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun createProfile(name: String, ageGroup: String) {
+    fun createProfile(
+        name: String, 
+        ageGroup: String, 
+        empathy: Int, 
+        confidence: Int, 
+        communication: Int
+    ) {
         viewModelScope.launch {
-            repository.createProfile(name, ageGroup)
+            repository.createProfile(name, ageGroup, empathy, confidence, communication)
         }
     }
 

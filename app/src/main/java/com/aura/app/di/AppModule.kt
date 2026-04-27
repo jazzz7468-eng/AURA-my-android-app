@@ -3,6 +3,8 @@ package com.aura.app.di
 import android.content.Context
 import androidx.room.Room
 import com.aura.app.data.local.AuraDatabase
+import com.aura.app.data.local.JournalDao
+import com.aura.app.data.local.MirrorDao
 import com.aura.app.data.local.UserDao
 import com.aura.app.data.remote.GeminiApiService
 import dagger.Module
@@ -35,6 +37,18 @@ object AppModule {
     @Singleton
     fun provideUserDao(database: AuraDatabase): UserDao {
         return database.userDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideJournalDao(database: AuraDatabase): JournalDao {
+        return database.journalDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMirrorDao(database: AuraDatabase): MirrorDao {
+        return database.mirrorDao()
     }
 
     @Provides

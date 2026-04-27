@@ -9,6 +9,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.aura.app.data.local.entities.UserProfile
 import com.aura.app.ui.components.AdaptiveCard
 import com.aura.app.ui.components.XPProgressBar
+import com.aura.app.ui.components.avatar.LivingAura
 import com.aura.app.ui.theme.AuraTheme
 import com.aura.app.util.XPManager
 import java.time.LocalTime
@@ -33,6 +36,9 @@ fun DashboardScreen(
     onNavigateToSocialLab: () -> Unit,
     onNavigateToMissions: () -> Unit,
     onNavigateToAvatar: () -> Unit,
+    onNavigateToMirror: () -> Unit = {},
+    isDarkTheme: Boolean = true,
+    onToggleTheme: () -> Unit = {},
 ) {
     val ageGroup = AuraTheme.ageGroup
     val profile = userProfile ?: return
@@ -68,6 +74,21 @@ fun DashboardScreen(
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.ExtraBold,
+                )
+            }
+
+            // Theme Toggle Button
+            IconButton(
+                onClick = onToggleTheme,
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+            ) {
+                Icon(
+                    imageVector = if (isDarkTheme) Icons.Outlined.LightMode else Icons.Outlined.DarkMode,
+                    contentDescription = "Toggle Theme",
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
 
@@ -166,6 +187,18 @@ fun DashboardScreen(
                 MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
             ),
             onClick = onNavigateToAvatar,
+        )
+
+        FeatureCard(
+            icon = Icons.Filled.CameraAlt,
+            emoji = "🪞",
+            title = "Mirror-Tech",
+            description = "Analyze your body language with AI in real-time",
+            gradientColors = listOf(
+                MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+                MaterialTheme.colorScheme.secondary.copy(alpha = 0.12f),
+            ),
+            onClick = onNavigateToMirror,
         )
 
         // ── Daily Tip ──

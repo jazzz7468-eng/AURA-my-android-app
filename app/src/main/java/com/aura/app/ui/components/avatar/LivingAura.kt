@@ -107,7 +107,9 @@ fun LivingAura(
 private fun DrawScope.drawKidsAura(stage: Int, rotation: Float, pulse: Float, celebration: Boolean) {
     val center = Offset(size.width / 2, size.height / 2)
     val baseRadius = size.minDimension / 4
-    val numPetals = 3 + stage
+    val visualLevel = stage.coerceAtMost(30)
+    val numPetals = 3 + (visualLevel / 2) // More petals as you level up, capped at 18
+
     
     rotate(rotation, center) {
         for (i in 0 until numPetals) {
@@ -118,12 +120,12 @@ private fun DrawScope.drawKidsAura(stage: Int, rotation: Float, pulse: Float, ce
                 val x = center.x + (petalRadius * cos(angle))
                 val y = center.y + (petalRadius * sin(angle))
                 moveTo(center.x, center.y)
-                quadraticTo(
+                quadraticBezierTo(
                     center.x + (petalRadius * 0.8f * cos(angle - 0.2f)),
                     center.y + (petalRadius * 0.8f * sin(angle - 0.2f)),
                     x, y
                 )
-                quadraticTo(
+                quadraticBezierTo(
                     center.x + (petalRadius * 0.8f * cos(angle + 0.2f)),
                     center.y + (petalRadius * 0.8f * sin(angle + 0.2f)),
                     center.x, center.y
@@ -141,7 +143,8 @@ private fun DrawScope.drawKidsAura(stage: Int, rotation: Float, pulse: Float, ce
 private fun DrawScope.drawTeensAura(stage: Int, rotation: Float, pulse: Float, celebration: Boolean) {
     val center = Offset(size.width / 2, size.height / 2)
     val size = size.minDimension / 2.5f * pulse
-    val numLayers = stage
+    val numLayers = stage.coerceAtMost(15) // More geometric layers, capped at 15
+
     
     for (layer in 1..numLayers) {
         rotate(rotation * (layer * 0.5f), center) {
@@ -182,11 +185,12 @@ private fun DrawScope.drawTeensAura(stage: Int, rotation: Float, pulse: Float, c
 private fun DrawScope.drawAdultsAura(stage: Int, rotation: Float, pulse: Float, celebration: Boolean) {
     val center = Offset(size.width / 2, size.height / 2)
     val radius = size.minDimension / 2.2f * pulse
+    val numLayers = stage.coerceAtMost(20) // Sweeping flows, capped at 20
     
     // Adult aura is focus on sweeping, elegant circular flows
-    for (i in 1..stage) {
+    for (i in 1..numLayers) {
         rotate(rotation * 0.2f * i, center) {
-            val sweepRadius = radius * (i.toFloat() / stage)
+            val sweepRadius = radius * (i.toFloat() / numLayers)
             drawCircle(
                 brush = Brush.sweepGradient(
                     colors = AdultsAuraColors,
@@ -224,30 +228,5 @@ private val TeensAuraColors = listOf(Color(0xFF00E5FF), Color(0xFF7C4DFF), Color
 private val AdultsAuraColors = listOf(Color(0xFF1E88E5), Color(0xFF1565C0), Color(0xFF00ACC1), Color(0xFFB0BEC5))
 
 private fun getStageEmoji(stage: Int, ageGroup: String): String {
-    return when (ageGroup) {
-        "kids" -> when (stage) {
-            1 -> "🌱" // Seed
-            2 -> "🌿" // Sprout
-            3 -> "🌸" // Bloom
-            4 -> "✨" // Radiant
-            5 -> "🦸" // Hero
-            else -> "🧒"
-        }
-        "teens" -> when (stage) {
-            1 -> "🌑" // Seed
-            2 -> "🌙" // Sprout
-            3 -> "🌕" // Bloom
-            4 -> "☄️" // Radiant
-            5 -> "🔥" // Master
-            else -> "😶"
-        }
-        else -> when (stage) {
-            1 -> "💎" // Seed
-            2 -> "💠" // Sprout
-            3 -> "🔱" // Bloom
-            4 -> "👑" // Radiant
-            5 -> "🌌" // Visionary
-            else -> "🙂"
-        }
-    }
+    return com.aura.app.util.XPManager.getStageEmoji(stage)
 }

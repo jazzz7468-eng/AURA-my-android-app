@@ -14,6 +14,8 @@ import com.aura.app.ui.components.AuraBottomBar
 import com.aura.app.ui.components.avatar.StageUpCelebration
 import com.aura.app.ui.screens.avatar.AvatarScreen
 import com.aura.app.ui.screens.dashboard.DashboardScreen
+import com.aura.app.ui.screens.journal.JournalScreen
+import com.aura.app.ui.screens.mirror.MirrorScreen
 import com.aura.app.ui.screens.missions.MissionsScreen
 import com.aura.app.ui.screens.onboarding.OnboardingScreen
 import com.aura.app.ui.screens.sociallab.ChatScreen
@@ -28,6 +30,8 @@ sealed class Screen(val route: String) {
         fun createRoute(scenarioId: String) = "social_lab/$scenarioId"
     }
     object Missions : Screen("missions")
+    object Journal : Screen("journal")
+    object Mirror : Screen("mirror")
     object Avatar : Screen("avatar")
 }
 
@@ -35,6 +39,8 @@ sealed class Screen(val route: String) {
 fun AuraNavGraph(
     modifier: Modifier = Modifier,
     userViewModel: UserViewModel,
+    isDarkTheme: Boolean,
+    onToggleTheme: () -> Unit,
 ) {
     val navController = rememberNavController()
     val userProfile by userViewModel.userProfile.collectAsState()
@@ -60,6 +66,8 @@ fun AuraNavGraph(
         Screen.Dashboard.route,
         Screen.SocialLab.route,
         Screen.Missions.route,
+        Screen.Journal.route,
+        Screen.Mirror.route,
         Screen.Avatar.route,
     )
 
@@ -91,8 +99,8 @@ fun AuraNavGraph(
         ) {
             composable(Screen.Onboarding.route) {
                 OnboardingScreen(
-                    onComplete = { name, ageGroup ->
-                        userViewModel.createProfile(name, ageGroup)
+                    onComplete = { name, ageGroup, empathy, confidence, comms ->
+                        userViewModel.createProfile(name, ageGroup, empathy, confidence, comms)
                         navController.navigate(Screen.Dashboard.route) {
                             popUpTo(Screen.Onboarding.route) { inclusive = true }
                         }
@@ -106,6 +114,9 @@ fun AuraNavGraph(
                     onNavigateToSocialLab = { navController.navigate(Screen.SocialLab.route) },
                     onNavigateToMissions = { navController.navigate(Screen.Missions.route) },
                     onNavigateToAvatar = { navController.navigate(Screen.Avatar.route) },
+                    onNavigateToMirror = { navController.navigate(Screen.Mirror.route) },
+                    isDarkTheme = isDarkTheme,
+                    onToggleTheme = onToggleTheme,
                 )
             }
 
@@ -132,6 +143,14 @@ fun AuraNavGraph(
 
             composable(Screen.Missions.route) {
                 MissionsScreen(userViewModel = userViewModel)
+            }
+
+            composable(Screen.Journal.route) {
+                JournalScreen()
+            }
+
+            composable(Screen.Mirror.route) {
+                MirrorScreen()
             }
 
             composable(Screen.Avatar.route) {
