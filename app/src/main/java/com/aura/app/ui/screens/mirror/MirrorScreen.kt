@@ -4,7 +4,6 @@ import android.Manifest
 import android.util.Size
 import android.view.ViewGroup
 import androidx.camera.core.CameraSelector
-import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -24,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -45,10 +43,11 @@ import com.aura.app.ui.components.AdaptiveCard
 import com.aura.app.ui.components.avatar.StageUpCelebration
 import com.aura.app.ui.theme.AuraTheme
 import com.aura.app.viewmodel.MirrorViewModel
+import com.aura.app.viewmodel.MirrorUiState
 import java.util.concurrent.Executors
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
-@kotlin.OptIn(ExperimentalPermissionsApi::class)
 fun MirrorScreen(
     viewModel: MirrorViewModel = hiltViewModel(),
 ) {
@@ -67,7 +66,6 @@ fun MirrorScreen(
     }
 
     if (uiState.isSessionActive) {
-        // ── ACTIVE SESSION VIEW (Camera + Live Feedback) ──
         ActiveSessionView(
             uiState = uiState,
             viewModel = viewModel,
@@ -75,7 +73,6 @@ fun MirrorScreen(
             onRequestPermission = { cameraPermission.launchPermissionRequest() },
         )
     } else {
-        // ── MAIN HUB VIEW ──
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -98,7 +95,6 @@ fun MirrorScreen(
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
             )
 
-            // ── Stats Overview ──
             if (uiState.totalSessions > 0) {
                 AdaptiveCard {
                     Row(
@@ -111,7 +107,6 @@ fun MirrorScreen(
                 }
             }
 
-            // ── Start Session Card ──
             AdaptiveCard {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -150,7 +145,6 @@ fun MirrorScreen(
                 }
             }
 
-            // ── Past Sessions ──
             if (uiState.pastSessions.isNotEmpty()) {
                 Text(
                     text = "Recent Sessions",
@@ -168,7 +162,6 @@ fun MirrorScreen(
         }
     }
 
-    // ── Session Results Dialog ──
     if (uiState.showResults && uiState.sessionSummary != null) {
         ResultsDialog(
             summary = uiState.sessionSummary!!,
@@ -177,7 +170,6 @@ fun MirrorScreen(
         )
     }
 
-    // ── Stage-up celebration ──
     if (showStageUp) {
         StageUpCelebration(
             stage = newStage,
@@ -187,13 +179,9 @@ fun MirrorScreen(
     }
 }
 
-// ──────────────────────────────────────────────────────
-// ACTIVE SESSION (Camera + Real-time overlay)
-// ──────────────────────────────────────────────────────
-
 @Composable
 private fun ActiveSessionView(
-    uiState: com.aura.app.viewmodel.MirrorUiState,
+    uiState: MirrorUiState,
     viewModel: MirrorViewModel,
     hasCameraPermission: Boolean,
     onRequestPermission: () -> Unit,
@@ -229,10 +217,8 @@ private fun ActiveSessionView(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Camera Preview
         CameraPreview(viewModel = viewModel)
 
-        // Top bar overlay
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -241,7 +227,6 @@ private fun ActiveSessionView(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // Timer
             Surface(
                 shape = RoundedCornerShape(12.dp),
                 color = Color.Black.copy(alpha = 0.6f),
@@ -276,7 +261,6 @@ private fun ActiveSessionView(
                 }
             }
 
-            // End button
             FilledTonalButton(
                 onClick = { viewModel.endSession() },
                 shape = RoundedCornerShape(12.dp),
@@ -289,7 +273,6 @@ private fun ActiveSessionView(
             }
         }
 
-        // Live Metrics at bottom
         Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -302,7 +285,6 @@ private fun ActiveSessionView(
                 .navigationBarsPadding()
                 .padding(16.dp),
         ) {
-            // Feedback message
             Surface(
                 shape = RoundedCornerShape(12.dp),
                 color = Color.Black.copy(alpha = 0.5f),
@@ -318,7 +300,6 @@ private fun ActiveSessionView(
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Live score bars
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -363,12 +344,10 @@ private fun CameraPreview(viewModel: MirrorViewModel) {
                 }
 
                 val imageAnalysis = ImageAnalysis.Builder()
-                    .setTargetResolution(Size(640, 480))
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
 
                 imageAnalysis.setAnalyzer(executor) { imageProxy ->
-                    @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
                     val mediaImage = imageProxy.image
                     if (mediaImage != null) {
                         val inputImage = InputImage.fromMediaImage(
@@ -407,10 +386,6 @@ private fun CameraPreview(viewModel: MirrorViewModel) {
         modifier = Modifier.fillMaxSize(),
     )
 }
-
-// ──────────────────────────────────────────────────────
-// UI COMPONENTS
-// ──────────────────────────────────────────────────────
 
 @Composable
 private fun LiveMetric(label: String, value: Int, color: Color) {
@@ -521,7 +496,6 @@ private fun ResultsDialog(
                     color = MaterialTheme.colorScheme.onSurface,
                 )
 
-                // Overall confidence
                 Surface(
                     shape = CircleShape,
                     color = getConfidenceColor(summary.overallConfidence).copy(alpha = 0.15f),
@@ -540,7 +514,6 @@ private fun ResultsDialog(
 
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                // Breakdown
                 FeedbackSection("Posture", summary.postureScore, summary.postureFeedback)
                 FeedbackSection("Eye Contact", summary.eyeContactScore, summary.eyeContactFeedback)
                 FeedbackSection("Gestures", summary.gestureScore, summary.gestureFeedback)
@@ -609,10 +582,6 @@ private fun StatColumn(emoji: String, value: String, label: String) {
         )
     }
 }
-
-// ──────────────────────────────────────────────────────
-// HELPERS
-// ──────────────────────────────────────────────────────
 
 private fun formatTime(seconds: Int): String {
     val mins = seconds / 60
