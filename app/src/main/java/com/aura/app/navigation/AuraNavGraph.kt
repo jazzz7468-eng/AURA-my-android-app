@@ -44,6 +44,13 @@ fun AuraNavGraph(
 ) {
     val navController = rememberNavController()
     val userProfile by userViewModel.userProfile.collectAsState()
+    
+    // Check if we are still loading the profile to avoid redirecting to Onboarding incorrectly
+    if (userProfile == null) {
+        // You could return a LoadingScreen() here, or just a blank Surface
+        return
+    }
+    
     val hasOnboarded = userProfile?.hasOnboarded ?: false
 
     // Stage-up celebration
@@ -67,7 +74,6 @@ fun AuraNavGraph(
         Screen.SocialLab.route,
         Screen.Missions.route,
         Screen.Journal.route,
-        Screen.Mirror.route,
         Screen.Avatar.route,
     )
 
@@ -78,10 +84,20 @@ fun AuraNavGraph(
                 AuraBottomBar(
                     currentRoute = currentRoute ?: "",
                     onNavigate = { route ->
-                        navController.navigate(route) {
-                            popUpTo(Screen.Dashboard.route) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
+                        if (currentRoute != route) {
+                            navController.navigate(route) {
+                                // Pop up to the start destination of the graph to
+                                // avoid building up a large stack of destinations
+                                // on the back stack as users select items
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
+                                }
+                                // Avoid multiple copies of the same destination when
+                                // reselecting the same item
+                                launchSingleTop = true
+                                // Restore state when reselecting a previously selected item
+                                restoreState = true
+                            }
                         }
                     }
                 )
@@ -150,7 +166,9 @@ fun AuraNavGraph(
             }
 
             composable(Screen.Mirror.route) {
-                MirrorScreen()
+                MirrorScreen(
+                    onNavigateBack = { navController.popBackStack() }
+                )
             }
 
             composable(Screen.Avatar.route) {

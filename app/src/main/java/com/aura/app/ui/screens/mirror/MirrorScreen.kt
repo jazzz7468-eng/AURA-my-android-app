@@ -1,7 +1,6 @@
 package com.aura.app.ui.screens.mirror
 
 import android.Manifest
-import android.util.Size
 import android.view.ViewGroup
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -22,6 +21,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
@@ -32,34 +32,44 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
+import com.aura.app.viewmodel.MirrorUiState
+import com.aura.app.viewmodel.MirrorViewModel
+import com.aura.app.data.local.entities.MirrorSession
 import com.aura.app.data.mirror.PoseAnalyzer
 import com.aura.app.ui.components.AdaptiveCard
 import com.aura.app.ui.components.avatar.StageUpCelebration
 import com.aura.app.ui.theme.AuraTheme
-import com.aura.app.viewmodel.MirrorViewModel
-import com.aura.app.viewmodel.MirrorUiState
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.Executors
 
 @OptIn(ExperimentalPermissionsApi::class)
+@androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
 @Composable
 fun MirrorScreen(
+    onNavigateBack: () -> Unit = {},
     viewModel: MirrorViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    val ageGroup = AuraTheme.ageGroup
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle(
+        initialValue = MirrorUiState()
+    )
+    val ageGroup: String = AuraTheme.ageGroup
     val cameraPermission = rememberPermissionState(Manifest.permission.CAMERA)
 
     var showStageUp by remember { mutableStateOf(false) }
     var newStage by remember { mutableIntStateOf(1) }
 
     LaunchedEffect(Unit) {
-        viewModel.stageUpEvent.collect { stage ->
+        viewModel.stageUpEvent.collect { stage: Int ->
             newStage = stage
             showStageUp = true
         }
@@ -82,12 +92,25 @@ fun MirrorScreen(
                 .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            Text(
-                text = if (ageGroup == "kids") "🪞 Mirror-Tech" else "Mirror-Tech",
-                style = MaterialTheme.typography.displayMedium,
-                fontWeight = FontWeight.ExtraBold,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(onClick = { onNavigateBack() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = if (ageGroup == "kids") "🪞 Mirror-Tech" else "Mirror-Tech",
+                    style = MaterialTheme.typography.displayMedium,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
 
             Text(
                 text = "Practice your body language with real-time AI feedback. All analysis runs on your device — no video is ever uploaded.",
@@ -96,7 +119,7 @@ fun MirrorScreen(
             )
 
             if (uiState.totalSessions > 0) {
-                AdaptiveCard {
+                AdaptiveCard(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -107,7 +130,7 @@ fun MirrorScreen(
                 }
             }
 
-            AdaptiveCard {
+            AdaptiveCard(modifier = Modifier.fillMaxWidth()) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -261,15 +284,30 @@ private fun ActiveSessionView(
                 }
             }
 
-            FilledTonalButton(
-                onClick = { viewModel.endSession() },
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = Color.Red.copy(alpha = 0.8f),
-                    contentColor = Color.White,
-                ),
-            ) {
-                Text("End", fontWeight = FontWeight.Bold)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                IconButton(
+                    onClick = { if (uiState.isPaused) viewModel.resumeSession() else viewModel.pauseSession() },
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(Color.Black.copy(alpha = 0.6f))
+                ) {
+                    Icon(
+                        imageVector = if (uiState.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                        contentDescription = if (uiState.isPaused) "Resume" else "Pause",
+                        tint = Color.White
+                    )
+                }
+
+                FilledTonalButton(
+                    onClick = { viewModel.endSession() },
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = Color.Red.copy(alpha = 0.8f),
+                        contentColor = Color.White,
+                    ),
+                ) {
+                    Text("End", fontWeight = FontWeight.Bold)
+                }
             }
         }
 
@@ -278,7 +316,7 @@ private fun ActiveSessionView(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .background(
-                    brush = androidx.compose.ui.graphics.Brush.verticalGradient(
+                    brush = Brush.verticalGradient(
                         colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
                     )
                 )
@@ -313,6 +351,7 @@ private fun ActiveSessionView(
     }
 }
 
+@androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
 @Composable
 private fun CameraPreview(viewModel: MirrorViewModel) {
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -323,6 +362,13 @@ private fun CameraPreview(viewModel: MirrorViewModel) {
             .setDetectorMode(PoseDetectorOptions.STREAM_MODE)
             .build()
         PoseDetection.getClient(options)
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            poseDetector.close()
+            executor.shutdown()
+        }
     }
 
     AndroidView(
@@ -355,7 +401,7 @@ private fun CameraPreview(viewModel: MirrorViewModel) {
                             imageProxy.imageInfo.rotationDegrees,
                         )
                         poseDetector.process(inputImage)
-                            .addOnSuccessListener { pose ->
+                            .addOnSuccessListener { pose: Pose ->
                                 if (pose.allPoseLandmarks.isNotEmpty()) {
                                     val analysis = PoseAnalyzer.analyzeFrame(pose)
                                     viewModel.onFrameAnalyzed(analysis)
@@ -427,10 +473,10 @@ private fun DurationChip(label: String, seconds: Int, viewModel: MirrorViewModel
 }
 
 @Composable
-private fun PastSessionCard(session: com.aura.app.data.local.entities.MirrorSession) {
-    val dateFormat = remember { java.text.SimpleDateFormat("MMM dd • hh:mm a", java.util.Locale.getDefault()) }
+private fun PastSessionCard(session: MirrorSession) {
+    val dateFormat = remember { SimpleDateFormat("MMM dd • hh:mm a", Locale.getDefault()) }
 
-    AdaptiveCard {
+    AdaptiveCard(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -453,7 +499,7 @@ private fun PastSessionCard(session: com.aura.app.data.local.entities.MirrorSess
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Text(
-                    text = "${session.durationSeconds}s • ${dateFormat.format(java.util.Date(session.completedAt))}",
+                    text = "${session.durationSeconds}s • ${dateFormat.format(Date(session.completedAt))}",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 )

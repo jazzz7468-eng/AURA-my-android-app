@@ -107,8 +107,8 @@ fun LivingAura(
 private fun DrawScope.drawKidsAura(stage: Int, rotation: Float, pulse: Float, celebration: Boolean) {
     val center = Offset(size.width / 2, size.height / 2)
     val baseRadius = size.minDimension / 4
-    val visualLevel = stage.coerceAtMost(30)
-    val numPetals = 3 + (visualLevel / 2) // More petals as you level up, capped at 18
+    val visualLevel = stage.coerceIn(1, 30)
+    val numPetals = (3 + (visualLevel / 2)).coerceAtLeast(3) // More petals as you level up, capped at 18
 
     
     rotate(rotation, center) {
@@ -143,7 +143,7 @@ private fun DrawScope.drawKidsAura(stage: Int, rotation: Float, pulse: Float, ce
 private fun DrawScope.drawTeensAura(stage: Int, rotation: Float, pulse: Float, celebration: Boolean) {
     val center = Offset(size.width / 2, size.height / 2)
     val size = size.minDimension / 2.5f * pulse
-    val numLayers = stage.coerceAtMost(15) // More geometric layers, capped at 15
+    val numLayers = stage.coerceIn(1, 15) // More geometric layers, capped at 15
 
     
     for (layer in 1..numLayers) {
@@ -185,7 +185,7 @@ private fun DrawScope.drawTeensAura(stage: Int, rotation: Float, pulse: Float, c
 private fun DrawScope.drawAdultsAura(stage: Int, rotation: Float, pulse: Float, celebration: Boolean) {
     val center = Offset(size.width / 2, size.height / 2)
     val radius = size.minDimension / 2.2f * pulse
-    val numLayers = stage.coerceAtMost(20) // Sweeping flows, capped at 20
+    val numLayers = stage.coerceIn(1, 20) // Sweeping flows, capped at 20
     
     // Adult aura is focus on sweeping, elegant circular flows
     for (i in 1..numLayers) {

@@ -61,6 +61,8 @@ fun RadarChart(
                 val values = animatedValues
                 val numAxes = labels.size
 
+                if (numAxes < 3) return@Canvas // Cannot draw a radar chart with fewer than 3 axes
+
                 // Draw grid rings
                 for (ring in 1..4) {
                     val ringRadius = radius * ring / 4

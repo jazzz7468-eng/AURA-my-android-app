@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aura.app.util.XPManager
+import com.aura.app.ui.theme.AuraTheme
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
@@ -48,10 +49,11 @@ fun StageUpCelebration(
     }
 
     // Particle colors based on age group
+    val extendedColors = AuraTheme.extendedColors
     val particleColors = when (ageGroup) {
-        "kids" -> listOf(Color(0xFFFF7043), Color(0xFF66BB6A), Color(0xFF42A5F5), Color(0xFFFFCA28), Color(0xFFE91E63))
-        "teens" -> listOf(Color(0xFF7C4DFF), Color(0xFFFF4081), Color(0xFF00E5FF), Color(0xFFFF9800))
-        else -> listOf(Color(0xFFFFD700), Color(0xFF00E5FF), Color(0xFF7C4DFF), Color(0xFFFF6B9D))
+        "kids" -> listOf(Color(0xFFFF7043), Color(0xFF66BB6A), Color(0xFF42A5F5), Color(0xFFFFCA28), extendedColors.xpGradientStart)
+        "teens" -> listOf(extendedColors.xpGradientStart, extendedColors.xpGradientEnd, extendedColors.accentGlow, Color(0xFF00E5FF))
+        else -> listOf(extendedColors.xpGradientStart, Color(0xFFFFD700), extendedColors.accentGlow, Color.White)
     }
 
     // Generate particles
@@ -79,21 +81,39 @@ fun StageUpCelebration(
         label = "progress",
     )
 
+    // Title with pulsing animation
+    val pulseTransition = rememberInfiniteTransition(label = "pulse")
+    val pulseTitleScale by pulseTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1200, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "pulseTitle"
+    )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.75f))
+            .background(Color.Black.copy(alpha = 0.85f)) // Slightly darker for more drama
             .clickable(onClick = onDismiss),
         contentAlignment = Alignment.Center,
     ) {
-        // Particle effects
+        // Particle effects with explosion behavior
         Canvas(modifier = Modifier.fillMaxSize()) {
             particles.forEach { p ->
                 val t = particleProgress
-                val x = (p.x + p.dx * t) % 1f * size.width
-                val y = (p.y + p.dy * t + t * 0.5f) % 1f * size.height
+                // Move from center outwards
+                val centerX = size.width / 2
+                val centerY = size.height / 2
+                val distance = (t * 1.5f) // How far they fly
+                
+                val x = centerX + (p.dx * size.width * 0.5f * t)
+                val y = centerY + (p.dy * size.height * 0.5f * t)
+                
                 drawCircle(
-                    color = p.color.copy(alpha = p.alpha * (1f - t * 0.3f)),
+                    color = p.color.copy(alpha = p.alpha * (1f - t)),
                     radius = p.size * scaleAnim.value,
                     center = Offset(x, y),
                 )
@@ -106,10 +126,10 @@ fun StageUpCelebration(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.padding(32.dp),
         ) {
-            // Living Aura with bounce
+            // Living Aura with bounce and slow rotation
             Box(
                 modifier = Modifier
-                    .size(240.dp)
+                    .size(280.dp) // Larger for celebration
                     .scale(scaleAnim.value),
                 contentAlignment = Alignment.Center
             ) {
@@ -121,13 +141,14 @@ fun StageUpCelebration(
                 )
             }
 
-            // Title
+            // Title with pulse
             Text(
                 text = "You've Evolved!",
-                fontSize = (32 * scaleAnim.value).sp,
+                fontSize = (36 * scaleAnim.value * pulseTitleScale).sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White,
                 textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp)
             )
 
             // Stage name with glow
